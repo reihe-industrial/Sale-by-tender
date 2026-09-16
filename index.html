@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【標售案名稱】｜土地標售公告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F1E4;
+    --paper-deep:#EDE4CC;
+    --ink:#2B241C;
+    --ink-soft:#7A6F5C;
+    --seal:#9C3626;
+    --seal-deep:#7C2A1E;
+    --seal-soft:#C97D66;
+    --brass:#A9832F;
+    --brass-soft:#D8C48A;
+    --line:#DCCFA8;
+    --white:#FFFCF3;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(900px 500px at 50% -120px, rgba(156,54,38,0.06), transparent 70%),
+      repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(43,36,28,0.018) 39px);
+    color:var(--ink);
+    font-family:'Noto Sans TC', sans-serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .fret{
+    height:14px;
+    width:100%;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='14' viewBox='0 0 56 14'%3E%3Cpath d='M0 7 L7 7 L7 0 L21 0 L21 7 L28 7 L28 14 L14 14 L14 7 Z' fill='none' stroke='%23A9832F' stroke-width='1.1' opacity='0.55'/%3E%3Cpath d='M28 7 L35 7 L35 0 L49 0 L49 7 L56 7 L56 14 L42 14 L42 7 Z' fill='none' stroke='%23A9832F' stroke-width='1.1' opacity='0.55'/%3E%3C/svg%3E");
+    background-repeat:repeat-x;
+    background-position:center;
+  }
+  .fret.top{background-color:var(--paper-deep);}
+  .fret.bottom{background-color:var(--paper-deep); transform:scaleY(-1);}
+
+  .page{
+    max-width:800px;
+    margin:0 auto;
+    padding:0 28px 100px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:56px 0 40px;
+    position:relative;
+  }
+  .hero-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:24px;
+  }
+  .org-block .org{
+    font-family:'Noto Serif TC', serif;
+    font-weight:600;
+    font-size:14.5px;
+    letter-spacing:0.05em;
+    color:var(--ink-soft);
+    margin:0 0 6px;
+  }
+  .org-block .doc-no{
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  .chop{
+    flex-shrink:0;
+    width:72px;
+    height:72px;
+    border:3px solid var(--seal);
+    border-radius:4px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transform:rotate(2.5deg);
+    box-shadow:0 0 0 1px var(--seal) inset;
+  }
+  .chop::before{
+    content:'';
+    position:absolute;
+    inset:5px;
+    border:1px solid var(--seal);
+    border-radius:2px;
+  }
+  .chop span{
+    font-family:'Noto Serif TC', serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--seal);
+    writing-mode:vertical-rl;
+    letter-spacing:0.18em;
+  }
+
+  h1.title{
+    font-family:'Noto Serif TC', serif;
+    font-weight:900;
+    font-size:clamp(30px, 5.2vw, 44px);
+    line-height:1.35;
+    margin:28px 0 10px;
+    color:var(--ink);
+    max-width:14ch;
+  }
+  .subtitle{
+    font-size:15px;
+    color:var(--ink-soft);
+    margin:0 0 32px;
+  }
+
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    border:1px solid var(--line);
+    background:var(--white);
+  }
+  .stat{
+    padding:20px 18px;
+    border-right:1px solid var(--line);
+  }
+  .stat:last-child{border-right:none;}
+  .stat .stat-label{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .stat .stat-value{
+    font-family:'Noto Serif TC', serif;
+    font-weight:700;
+    font-size:19px;
+    color:var(--seal);
+    line-height:1.4;
+  }
+
+  /* ---------- Image placeholders ---------- */
+  .photo-banner{
+    margin-top:36px;
+    aspect-ratio:21/8;
+    background:var(--paper-deep);
+    border:1.5px dashed var(--brass);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    color:var(--ink-soft);
+  }
+  .photo-banner svg{width:32px; height:32px; color:var(--brass);}
+  .photo-banner .ph-label{font-size:13.5px;}
+
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:12px;
+  }
+  .ph-tile{
+    aspect-ratio:4/3;
+    background:var(--paper-deep);
+    border:1.5px dashed var(--brass);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    color:var(--ink-soft);
+    font-size:12.5px;
+    text-align:center;
+    padding:8px;
+  }
+  .ph-tile svg{width:24px; height:24px; color:var(--brass);}
+
+  .map-placeholder{
+    aspect-ratio:16/6.5;
+    background:var(--paper-deep);
+    border:1.5px dashed var(--brass);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    color:var(--ink-soft);
+    margin-top:18px;
+  }
+  .map-placeholder svg{width:28px; height:28px; color:var(--seal);}
+  .map-placeholder .ph-label{font-size:13.5px;}
+
+  /* ---------- Sections ---------- */
+  section{margin-top:56px;}
+  .section-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .section-head svg{flex-shrink:0; color:var(--seal);}
+  .section-title{
+    font-family:'Noto Serif TC', serif;
+    font-weight:700;
+    font-size:20px;
+    color:var(--ink);
+    margin:0;
+  }
+  p{margin:0 0 12px;}
+  .note{color:var(--ink-soft); font-size:13.5px;}
+
+  /* ---------- Land info table ---------- */
+  table.info{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--white);
+    border:1px solid var(--line);
+  }
+  table.info th, table.info td{
+    padding:15px 18px;
+    text-align:left;
+    font-size:14.5px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+  }
+  table.info th{
+    width:30%;
+    color:var(--ink-soft);
+    font-weight:500;
+    background:var(--paper-deep);
+  }
+  table.info tr:last-child th, table.info tr:last-child td{border-bottom:none;}
+
+  /* ---------- Timeline ---------- */
+  .timeline{list-style:none; margin:0; padding:0;}
+  .timeline li{
+    position:relative;
+    padding:0 0 30px 40px;
+    border-left:1.5px solid var(--line);
+    margin-left:11px;
+  }
+  .timeline li:last-child{border-left:1.5px solid transparent; padding-bottom:0;}
+  .timeline .t-icon{
+    position:absolute;
+    left:-12px;
+    top:-2px;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:var(--white);
+    border:2px solid var(--seal);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--seal);
+  }
+  .timeline .t-icon svg{width:12px; height:12px;}
+  .timeline .t-date{
+    font-family:'Noto Serif TC', serif;
+    font-weight:700;
+    font-size:16.5px;
+    color:var(--ink);
+  }
+  .timeline .t-label{
+    font-size:14px;
+    color:var(--ink-soft);
+    margin-top:3px;
+  }
+
+  /* ---------- Downloads ---------- */
+  .downloads{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .dl-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:16px 18px;
+    background:var(--white);
+    border:1px solid var(--line);
+    text-decoration:none;
+    color:var(--ink);
+    transition:border-color 0.15s ease, transform 0.15s ease;
+  }
+  .dl-item:hover{border-color:var(--seal-soft); transform:translateY(-1px);}
+  .dl-icon{
+    flex-shrink:0;
+    width:36px;
+    height:36px;
+    border-radius:3px;
+    background:var(--paper-deep);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--seal);
+  }
+  .dl-icon svg{width:17px; height:17px;}
+  .dl-text{min-width:0;}
+  .dl-name{
+    font-size:14.5px;
+    font-weight:500;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .dl-format{font-size:12px; color:var(--ink-soft); margin-top:2px;}
+
+  /* ---------- Return box ---------- */
+  .return-box{
+    background:var(--white);
+    border:1px dashed var(--brass);
+    padding:30px 28px;
+    position:relative;
+  }
+  .return-box::before{
+    content:'限時掛號';
+    position:absolute;
+    top:-11px;
+    left:28px;
+    background:var(--paper);
+    padding:0 10px;
+    font-size:12px;
+    color:var(--seal);
+    font-weight:700;
+    letter-spacing:0.1em;
+  }
+  .return-box h3{
+    font-family:'Noto Serif TC', serif;
+    font-size:15.5px;
+    font-weight:600;
+    margin:6px 0 14px;
+    color:var(--ink);
+  }
+  .return-box .address{
+    font-size:17px;
+    font-weight:700;
+    color:var(--ink);
+    margin:0 0 18px;
+    padding:14px 18px;
+    background:var(--paper-deep);
+    display:inline-block;
+    font-family:'Noto Serif TC', serif;
+  }
+  .return-box ul{margin:0; padding-left:20px;}
+  .return-box li{margin-bottom:7px; font-size:14.5px;}
+
+  /* ---------- Contact ---------- */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .contact-grid div{background:var(--white); padding:17px 20px;}
+  .contact-grid .label{font-size:12.5px; color:var(--ink-soft); margin-bottom:5px;}
+  .contact-grid .value{font-size:15px; font-weight:500;}
+
+  footer.page-footer{
+    text-align:center;
+    margin-top:64px;
+    padding-top:26px;
+    border-top:1px solid var(--line);
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:600px){
+    .page{padding:0 18px 72px;}
+    .contact-grid{grid-template-columns:1fr;}
+    .downloads{grid-template-columns:1fr;}
+    .stat-row{grid-template-columns:1fr;}
+    .stat{border-right:none; border-bottom:1px solid var(--line);}
+    .stat:last-child{border-bottom:none;}
+    .hero{padding-top:36px;}
+    .gallery-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="fret top"></div>
+<div class="page">
+
+  <header class="hero">
+    <div class="hero-top">
+      <div class="org-block">
+        <p class="org">【廟名／主辦單位全銜】</p>
+        <p class="doc-no">公告文號：【文號，如無可留空】</p>
+      </div>
+      <div class="chop"><span>標售</span></div>
+    </div>
+
+    <h1 class="title">【標售案名稱】土地標售公告</h1>
+    <p class="subtitle">公告日期：【民國○年○月○日】｜線上領標，投標文件請郵寄回收件單位</p>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-label">投標底價</div>
+        <div class="stat-value">新臺幣【○,○○○,○○○】元</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">保證金</div>
+        <div class="stat-value">新臺幣【○○○,○○○】元</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">投標截止</div>
+        <div class="stat-value">【○月○日 ○○:○○】</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="photo-banner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15 L15 10 L4 19"/></svg>
+    <div class="ph-label">此處放置土地空拍照或現況照（資料到位後替換）</div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10 L12 4 L21 10 L21 20 L3 20 Z"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="20" x2="9" y2="13" /><line x1="15" y1="20" x2="15" y2="13"/></svg>
+      <h2 class="section-title">土地標示</h2>
+    </div>
+    <table class="info">
+      <tr><th>坐落地段地號</th><td>【縣市／鄉鎮市區／段小段】【地號】</td></tr>
+      <tr><th>地目／使用分區</th><td>【如：建、農、林；都市計畫使用分區或非都市土地使用地類別】</td></tr>
+      <tr><th>土地面積</th><td>【○○○ 坪（○○○ 平方公尺）】</td></tr>
+      <tr><th>土地現況</th><td>【現況說明：空地／有無地上物／現有使用情形等】</td></tr>
+    </table>
+    <div class="map-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21 C12 21 19 14.5 19 9.5 A7 7 0 0 0 5 9.5 C5 14.5 12 21 12 21 Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      <div class="ph-label">地理位置示意（地址確定後嵌入地圖或位置圖）</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="1"/><circle cx="8" cy="9.5" r="1.4"/><path d="M3 15 L9 10 L14 14 L17 11.5 L21 15"/></svg>
+      <h2 class="section-title">現場照片</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="ph-tile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15 L15 10 L4 19"/></svg>
+        照片 1
+      </div>
+      <div class="ph-tile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15 L15 10 L4 19"/></svg>
+        照片 2
+      </div>
+      <div class="ph-tile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15 L15 10 L4 19"/></svg>
+        照片 3
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="1"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="7" y1="3" x2="7" y2="7"/><line x1="17" y1="3" x2="17" y2="7"/></svg>
+      <h2 class="section-title">重要時程</h2>
+    </div>
+    <ul class="timeline">
+      <li>
+        <div class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="5"/></svg></div>
+        <div class="t-date">【○月○日】</div>
+        <div class="t-label">公告開始，開放線上領標</div>
+      </li>
+      <li>
+        <div class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 6 L12 12 L16 15"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <div class="t-date">【○月○日 ○○:○○】</div>
+        <div class="t-label">投標文件寄送截止（以郵戳為憑／必須送達，擇一標明）</div>
+      </li>
+      <li>
+        <div class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 20 L6 12 L18 12 L18 20"/><path d="M4 12 L20 12 L12 5 Z"/></svg></div>
+        <div class="t-date">【○月○日 ○○:○○】</div>
+        <div class="t-label">開標時間與地點：【地點】</div>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 L12 15"/><path d="M7 10 L12 15 L17 10"/><path d="M4 17 L4 20 L20 20 L20 17"/></svg>
+      <h2 class="section-title">領標下載</h2>
+    </div>
+    <p class="note" style="margin-bottom:18px;">請下載以下文件，詳閱投標須知後備妥資料。</p>
+    <div class="downloads">
+      <a class="dl-item" href="#">
+        <div class="dl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3 L14 3 L18 7 L18 21 L6 21 Z"/><path d="M14 3 L14 7 L18 7"/></svg></div>
+        <div class="dl-text"><div class="dl-name">標售公告全文</div><div class="dl-format">PDF</div></div>
+      </a>
+      <a class="dl-item" href="#">
+        <div class="dl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3 L14 3 L18 7 L18 21 L6 21 Z"/><path d="M14 3 L14 7 L18 7"/></svg></div>
+        <div class="dl-text"><div class="dl-name">投標須知</div><div class="dl-format">PDF</div></div>
+      </a>
+      <a class="dl-item" href="#">
+        <div class="dl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3 L14 3 L18 7 L18 21 L6 21 Z"/><path d="M14 3 L14 7 L18 7"/></svg></div>
+        <div class="dl-text"><div class="dl-name">土地登記（第一類）謄本</div><div class="dl-format">PDF</div></div>
+      </a>
+      <a class="dl-item" href="#">
+        <div class="dl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3 L14 3 L18 7 L18 21 L6 21 Z"/><path d="M14 3 L14 7 L18 7"/></svg></div>
+        <div class="dl-text"><div class="dl-name">地籍圖謄本</div><div class="dl-format">PDF</div></div>
+      </a>
+      <a class="dl-item" href="#" style="grid-column:1 / -1;">
+        <div class="dl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3 L14 3 L18 7 L18 21 L6 21 Z"/><path d="M14 3 L14 7 L18 7"/></svg></div>
+        <div class="dl-text"><div class="dl-name">投標書表格</div><div class="dl-format">DOC</div></div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6 L21 6 L21 18 L3 18 Z"/><path d="M3 6 L12 13 L21 6"/></svg>
+      <h2 class="section-title">投標方式</h2>
+    </div>
+    <div class="return-box">
+      <h3>備妥文件後，請以掛號郵寄至：</h3>
+      <div class="address">【收件單位全銜】【郵遞區號】【地址】</div>
+      <p class="note" style="margin-bottom:18px;">信封上請註明「【標售案名稱】投標文件，勿拆封」字樣。</p>
+      <h3>應備文件</h3>
+      <ul>
+        <li>投標書（依規定格式填寫並簽章）</li>
+        <li>保證金繳納證明</li>
+        <li>身分證明文件影本（自然人／公司登記證明文件，擇一）</li>
+        <li>【其他應備文件，請依實際須知補齊】</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 3a2 2 0 0 1-.5 2.1L8 10.1a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c1 .3 2 .5 3 .7a2 2 0 0 1 1.6 2Z"/></svg>
+      <h2 class="section-title">聯絡窗口</h2>
+    </div>
+    <div class="contact-grid">
+      <div><div class="label">承辦單位</div><div class="value">【單位名稱】</div></div>
+      <div><div class="label">聯絡人</div><div class="value">【姓名】</div></div>
+      <div><div class="label">聯絡電話</div><div class="value">【電話】</div></div>
+      <div><div class="label">電子郵件</div><div class="value">【email】</div></div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    本網頁僅提供標售資料下載，投標作業以【廟名／主辦單位】公告之投標須知為準。
+  </footer>
+
+</div>
+<div class="fret bottom"></div>
+</body>
+</html>
